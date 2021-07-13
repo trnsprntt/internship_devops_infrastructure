@@ -36,6 +36,6 @@ jobs:
         run: |
           git config --local user.email "github-actions@noreply.github.com"
           git config --local user.name "github-actions"
-          git commit -m "Updated helm tag"
+          git commit -m "Updated helm tag" -a
           git push
         
