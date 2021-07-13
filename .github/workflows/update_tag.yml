@@ -1,0 +1,35 @@
+name: change tag in helm charts
+on:
+  workflow_dispatch:
+  
+env:
+  TIER: ${{ github.event.client_payload.message.tier }}
+  TAG: ${{ github.event.client_payload.message.new_tag }}
+  
+jobs:
+
+  update-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: master
+        
+      - name: update tag in backend helm chart
+        if: ${{ env.TIER == 'backend'}}
+        run: |
+          sed -i "s/ *tag:.*/tag: "${{ env.TAG }}"/" helm/backend/values.yaml 
+          
+      - name: update tag in frontend helm chart
+        if: ${{ env.TIER == 'frontend'}}
+        run: |
+          sed -i "s/ *tag:.*/tag: "${{ env.TAG }}"/" helm/frontend/values.yaml 
+          
+      - name: Push to repo
+        run: |
+          git config --local user.email "github-actions@noreply.github.com"
+          git config --local user.name "github-actions"
+          git commit -m "Updated helm tag"
+          git push
+        
