@@ -1,10 +1,18 @@
 name: change tag in helm charts
 on:
   workflow_dispatch:
-  
+    inputs:
+        new_tag:
+          description: the tag to set in the helm chart
+          required: true
+
+        tier:
+          description: specify the helm chart to modify
+          required: true
+
 env:
-  TIER: ${{ github.event.client_payload.message.tier }}
-  TAG: ${{ github.event.client_payload.message.new_tag }}
+  TIER: ${{ github.event.inputs.tier }}
+  TAG: ${{ github.event.inputs.new_tag }}
   
 jobs:
 
@@ -13,8 +21,6 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-        with:
-          ref: master
         
       - name: update tag in backend helm chart
         if: ${{ env.TIER == 'backend'}}
