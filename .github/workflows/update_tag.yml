@@ -30,7 +30,7 @@ jobs:
       - name: update tag in frontend helm chart
         if: ${{ env.TIER == 'frontend'}}
         run: |
-          sed -i "s/ *tag:.*/tag: "${{ env.TAG }}"/" helm/frontend/values.yaml 
+          sed -i "s/ *tag:.*/  tag: "${{ env.TAG }}"/" helm/frontend/values.yaml 
           
       - name: Push to repo
         run: |
