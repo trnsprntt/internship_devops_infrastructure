@@ -8,7 +8,7 @@ image:
   repository: trnsprntt/internship_devops_backend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+tag: 7cecfecb591f0761e7d3791f814b6c321acf88d0
 
 imagePullSecrets: []
 nameOverride: ""
