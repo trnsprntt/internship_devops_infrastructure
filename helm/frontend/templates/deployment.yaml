@@ -35,19 +35,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: http
+              port: 3000
           readinessProbe:
             httpGet:
               path: /
-              port: http
+              port: 3000
           env:
             - name: REACT_APP_BASE_URL
-              value: http://trnsprntt.frontend.com:3000/ #http://trnsprntt.backend.com:5000/api
+              value: {{ .Values.backend }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
