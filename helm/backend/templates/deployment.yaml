@@ -38,11 +38,13 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
-            tcpSocket:
-              port: 5000
+            httpGet:
+              path: /api/cities
+              port: http
           readinessProbe:
-            tcpSocket:
-              port: 5000
+            httpGet:
+              path: /api/cities
+              port: http
           env:
             - name: PGDATABASE
               valueFrom:
